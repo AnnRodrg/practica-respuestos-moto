@@ -1,0 +1,14 @@
+namespace RepuestosMoto.Domain.Entities;
+
+public class CuentaPorPagar
+{
+    public long CuentaPorPagarId { get; set; }
+    public long CompraId { get; set; }
+    public int ProveedorId { get; set; }
+    public DateTime FechaEmision { get; set; }
+    public DateTime? FechaVencimiento { get; set; }
+    public decimal MontoOriginal { get; set; }
+    public decimal SaldoPendiente { get; set; }
+    public string Estado { get; set; } = string.Empty;
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+}

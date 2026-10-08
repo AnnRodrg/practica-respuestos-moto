@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="RepuestosMoto.AdminSetup/RepuestosMoto.AdminSetup.csproj" Id="c6520a97-56a9-4b9b-85e4-e54f89dfc183" />
+  <Project Path="RepuestosMoto.Application/RepuestosMoto.Application.csproj" />
+  <Project Path="RepuestosMoto.Domain/RepuestosMoto.Domain.csproj" />
+  <Project Path="RepuestosMoto.Infrastructure/RepuestosMoto.Infrastructure.csproj" />
+  <Project Path="RepuestosMoto.Web/RepuestosMoto.Web.csproj" />
+</Solution>

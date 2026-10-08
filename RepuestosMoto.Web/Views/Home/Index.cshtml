@@ -1,0 +1,8 @@
+@model IReadOnlyList<ProductoListado>
+@{ ViewData["Title"] = "Productos"; }
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>RepuestosMoto - Productos</title>
+<style>body{font-family:system-ui,sans-serif;max-width:960px;margin:2rem auto;padding:0 1rem}table{border-collapse:collapse;width:100%}th,td{padding:.75rem;border-bottom:1px solid #ddd;text-align:left}h1{color:#183153}</style></head>
+<body><h1>RepuestosMoto</h1><p>Catálogo de productos activos (demostración de lectura).</p><table><thead><tr><th>Código</th><th>Producto</th><th>Precio (USD)</th></tr></thead><tbody>
+@foreach (var p in Model) { <tr><td>@p.Codigo</td><td>@p.Nombre</td><td>@p.PrecioVenta.ToString("N2")</td></tr> }
+</tbody></table></body></html>
