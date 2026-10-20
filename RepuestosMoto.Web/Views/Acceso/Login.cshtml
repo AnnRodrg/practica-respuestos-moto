@@ -1,0 +1,639 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Iniciar sesión | MOTOBOX</title>
+
+    <style>
+            :root {
+                color-scheme: dark;
+                --background: #0b1018;
+                --surface: #121a26;
+                --border: #293345;
+                --text: #f5f6f8;
+                --muted: #a1a7b2;
+                --red: #ed172d;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                background: var(--background);
+                color: var(--text);
+                font-family: "Segoe UI", Arial, sans-serif;
+            }
+
+            button,
+            input {
+                font: inherit;
+            }
+
+            button {
+                cursor: pointer;
+            }
+
+            button:focus-visible,
+            input:focus-visible {
+                outline: 2px solid #73d9ee;
+                outline-offset: 3px;
+            }
+
+            .login-page {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
+
+            /* Panel de identidad visual */
+            .brand-panel {
+                position: relative;
+                display: grid;
+                place-items: center;
+                overflow: hidden;
+                min-height: 100%;
+                background: #080d13;
+            }
+
+            .brand-background {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            .brand-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    180deg,
+                    rgba(5, 9, 14, 0.45),
+                    rgba(5, 9, 14, 0.35) 45%,
+                    rgba(5, 9, 14, 0.85)
+                );
+            }
+
+            .brand-logo {
+                position: relative;
+                z-index: 1;
+                display: block;
+                width: 76%;
+                max-width: 430px;
+                height: auto;
+            }
+
+            /* Panel del formulario */
+            .access-panel {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 0;
+                padding: 100px 48px 110px;
+            }
+
+            .simulation-tools {
+                position: absolute;
+                top: 18px;
+                right: 18px;
+                left: 18px;
+                display: flex;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .simulation-button {
+                padding: 6px 10px;
+                border: 1px solid #675127;
+                border-radius: 20px;
+                background: #241e14;
+                color: #f2ce71;
+                font-size: 11px;
+            }
+
+            .simulation-button.change-password {
+                border-color: #205160;
+                background: #10232b;
+                color: #83d9ec;
+            }
+
+            .login-content {
+                width: 100%;
+                max-width: 420px;
+            }
+
+            h1 {
+                margin: 0 0 6px;
+                font-size: 29px;
+                line-height: 1.2;
+                letter-spacing: -1px;
+            }
+
+            .subtitle {
+                margin: 0 0 28px;
+                color: var(--muted);
+                font-size: 14px;
+            }
+
+            .field {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                min-height: 48px;
+                margin-bottom: 16px;
+                padding: 0 14px;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                background: var(--surface);
+            }
+
+            .field:focus-within {
+                border-color: #7c8ca7;
+            }
+
+            .field-icon {
+                width: 20px;
+                height: 20px;
+                flex-shrink: 0;
+                color: var(--muted);
+            }
+
+            .field input {
+                width: 100%;
+                min-width: 0;
+                padding: 14px 0;
+                border: 0;
+                outline: none;
+                background: transparent;
+                color: var(--text);
+                font-size: 14px;
+            }
+
+            .field input::placeholder {
+                color: #d2d6df;
+                opacity: 1;
+            }
+
+            .password-toggle {
+                display: grid;
+                place-items: center;
+                flex-shrink: 0;
+                width: 30px;
+                height: 32px;
+                padding: 0;
+                border: 0;
+                border-radius: 6px;
+                background: transparent;
+                color: var(--muted);
+            }
+
+            .password-toggle svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .login-button {
+                width: 100%;
+                min-height: 48px;
+                margin-top: 6px;
+                border: 0;
+                border-radius: 11px;
+                background: var(--red);
+                color: white;
+                font-weight: 700;
+                box-shadow: 0 8px 24px rgba(237, 23, 45, 0.14);
+            }
+
+            .login-button:hover {
+                background: #d91025;
+            }
+
+            .form-options {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 14px;
+                margin-top: 20px;
+                font-size: 12px;
+            }
+
+            .remember-option {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--muted);
+                cursor: pointer;
+            }
+
+            .remember-option input {
+                width: 16px;
+                height: 16px;
+                margin: 0;
+                accent-color: var(--red);
+            }
+
+            .text-button {
+                padding: 0;
+                border: 0;
+                background: transparent;
+                color: #f18b95;
+                font-size: 12px;
+            }
+
+            .demo-section {
+                margin-top: 32px;
+                padding-top: 22px;
+                border-top: 1px solid #202735;
+            }
+
+            .demo-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                margin-bottom: 12px;
+            }
+
+            .demo-title {
+                margin: 0;
+                color: var(--muted);
+                font-size: 11px;
+                letter-spacing: 0.5px;
+            }
+
+            .autocomplete-button {
+                color: #74cddd;
+                font-size: 10px;
+            }
+
+            .demo-profiles {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .profile-button {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                min-height: 58px;
+                padding: 10px 6px;
+                border: 1px solid var(--border);
+                border-radius: 9px;
+                background: var(--surface);
+                color: #e3e6ec;
+                font-size: 12px;
+            }
+
+            .profile-button:hover,
+            .profile-button[aria-pressed="true"] {
+                border-color: #71849e;
+                background: #1a2636;
+            }
+
+            .status-message {
+                margin-top: 18px;
+                padding: 12px;
+                border: 1px solid #334257;
+                border-radius: 9px;
+                background: #131e2c;
+                color: #d6e2f2;
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .status-message[hidden] {
+                display: none;
+            }
+
+            .access-footer {
+                position: absolute;
+                right: 24px;
+                bottom: 36px;
+                left: 24px;
+                text-align: center;
+                color: var(--muted);
+            }
+
+            .access-footer p {
+                margin: 0 0 4px;
+                font-size: 12px;
+            }
+
+            .access-footer small {
+                color: #7d8592;
+                font-size: 11px;
+            }
+
+            /* Responsive design breakpoints */
+            @@media (max-width: 900px) {
+                .login-page {
+                    grid-template-columns: 42% 58%;
+                }
+
+                .access-panel {
+                    padding-right: 28px;
+                    padding-left: 28px;
+                }
+
+                .brand-logo {
+                    width: 88%;
+                }
+            }
+
+            @@media (max-width: 680px) {
+                .login-page {
+                    grid-template-columns: 1fr;
+                }
+
+                .brand-panel {
+                    min-height: 230px;
+                }
+
+                .brand-background {
+                    object-position: center 35%;
+                }
+
+                .brand-logo {
+                    width: 240px;
+                    max-width: 75%;
+                }
+
+                .access-panel {
+                    padding: 100px 24px 110px;
+                }
+
+                .simulation-tools {
+                    justify-content: center;
+                }
+
+                .access-footer {
+                    bottom: 26px;
+                }
+            }
+    </style>
+</head>
+<body>
+    <main class="login-page">
+        <section class="brand-panel" aria-label="MOTOBOX, repuestos para motos">
+            <img class="brand-background"
+                 src="@Url.Content("~/images/login/fondo_login.png")"
+                 alt="" />
+
+            <div class="brand-overlay" aria-hidden="true"></div>
+
+            <img class="brand-logo"
+                 src="@Url.Content("~/images/login/logo_moto_box.png")"
+                 alt="MOTOBOX — Repuestos para motos" />
+        </section>
+
+        <section class="access-panel" aria-labelledby="login-title">
+            <div class="simulation-tools">
+                <button type="button"
+                        class="simulation-button"
+                        id="simulate-lock">
+                    🔒 Simular Bloqueo
+                </button>
+
+                <button type="button"
+                        class="simulation-button change-password"
+                        id="simulate-password-change">
+                    ⚙ Simular RequiereCambioPassword
+                </button>
+            </div>
+
+            <div class="login-content">
+                <h1 id="login-title">Iniciar Sesión</h1>
+                <p class="subtitle">Accede a tu cuenta para continuar</p>
+
+                <form id="login-form">
+                    <div class="field">
+                        <svg class="field-icon"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7"
+                             aria-hidden="true">
+                            <circle cx="12" cy="8" r="3.5"></circle>
+                            <path d="M5 21v-3a7 7 0 0 1 14 0v3"></path>
+                        </svg>
+
+                        <input id="usuario"
+                               type="text"
+                               placeholder="Usuario"
+                               aria-label="Usuario"
+                               autocomplete="username"
+                               required />
+                    </div>
+
+                    <div class="field">
+                        <svg class="field-icon"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7"
+                             aria-hidden="true">
+                            <rect x="5" y="10" width="14" height="11" rx="2"></rect>
+                            <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                            <path d="M12 14v3"></path>
+                        </svg>
+
+                        <input id="password"
+                               type="password"
+                               placeholder="Contraseña"
+                               aria-label="Contraseña"
+                               autocomplete="current-password"
+                               required />
+
+                        <button type="button"
+                                class="password-toggle"
+                                id="toggle-password"
+                                aria-label="Mostrar contraseña"
+                                aria-pressed="false">
+                            <svg viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="1.7"
+                                 aria-hidden="true">
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        Iniciar Sesión
+                    </button>
+
+                    <div class="form-options">
+                        <label class="remember-option">
+                            <input type="checkbox" id="recordar" />
+                            <span>Recordar contraseña</span>
+                        </label>
+
+                        <button type="button"
+                                class="text-button"
+                                id="forgot-password">
+                            ¿Olvidaste tu contraseña?
+                        </button>
+                    </div>
+                </form>
+
+                <section class="demo-section" aria-labelledby="demo-title">
+                    <div class="demo-header">
+                        <p class="demo-title" id="demo-title">
+                            PERFILES DE ACCESO RÁPIDO (DEMO)
+                        </p>
+
+                        <button type="button"
+                                class="text-button autocomplete-button"
+                                id="autocomplete-demo">
+                            AUTOCOMPLETAR
+                        </button>
+                    </div>
+
+                    <div class="demo-profiles">
+                        <button type="button"
+                                class="profile-button"
+                                data-profile="Admin"
+                                aria-pressed="false">
+                            <span aria-hidden="true">👑</span>
+                            <span>Admin</span>
+                        </button>
+
+                        <button type="button"
+                                class="profile-button"
+                                data-profile="Cajero / POS"
+                                aria-pressed="false">
+                            <span aria-hidden="true">🛒</span>
+                            <span>Cajero / POS</span>
+                        </button>
+
+                        <button type="button"
+                                class="profile-button"
+                                data-profile="Ventas/Stock"
+                                aria-pressed="false">
+                            <span aria-hidden="true">📦</span>
+                            <span>Ventas/Stock</span>
+                        </button>
+                    </div>
+                </section>
+
+                <div id="status-message"
+                     class="status-message"
+                     role="status"
+                     aria-live="polite"
+                     hidden>
+                </div>
+            </div>
+
+            <footer class="access-footer">
+                <p>MOTOBOX</p>
+                <small>Tu moto, nuestra pasión</small>
+            </footer>
+        </section>
+    </main>
+
+    <script>
+            (() => {
+                const form = document.getElementById("login-form");
+                const password = document.getElementById("password");
+                const toggle = document.getElementById("toggle-password");
+                const status = document.getElementById("status-message");
+                const profiles = document.querySelectorAll("[data-profile]");
+
+                let selectedProfile = "";
+
+                function showMessage(message) {
+                    status.textContent = message;
+                    status.hidden = false;
+                }
+
+                toggle.addEventListener("click", () => {
+                    const showPassword = password.type === "password";
+
+                    password.type = showPassword ? "text" : "password";
+                    toggle.setAttribute("aria-pressed", String(showPassword));
+                    toggle.setAttribute(
+                        "aria-label",
+                        showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+                    );
+                });
+
+                form.addEventListener("submit", (event) => {
+                    event.preventDefault();
+
+                    showMessage(
+                        "Vista de prueba: la autenticación todavía no está conectada. " +
+                        "No se enviaron ni verificaron las credenciales."
+                    );
+                });
+
+                profiles.forEach((button) => {
+                    button.addEventListener("click", () => {
+                        selectedProfile = button.dataset.profile;
+
+                        profiles.forEach((profile) => {
+                            profile.setAttribute(
+                                "aria-pressed",
+                                String(profile === button)
+                            );
+                        });
+
+                        showMessage(
+                            "Perfil de prueba seleccionado: " + selectedProfile +
+                            ". Esta selección no inicia sesión ni concede permisos."
+                        );
+                    });
+                });
+
+                document.getElementById("autocomplete-demo")
+                    .addEventListener("click", () => {
+                        showMessage(
+                            selectedProfile
+                                ? "Autocompletado pendiente: todavía no hemos definido " +
+                                  "credenciales de prueba para " + selectedProfile + "."
+                                : "Selecciona primero un perfil de demostración. " +
+                                  "Todavía no hay credenciales de prueba configuradas."
+                        );
+                    });
+
+                document.getElementById("simulate-lock")
+                    .addEventListener("click", () => {
+                        showMessage(
+                            "SIMULACIÓN: la cuenta está bloqueada temporalmente. " +
+                            "No se modificó ninguna cuenta real."
+                        );
+                    });
+
+                document.getElementById("simulate-password-change")
+                    .addEventListener("click", () => {
+                        showMessage(
+                            "SIMULACIÓN: el usuario debe cambiar su contraseña. " +
+                            "La pantalla de cambio todavía no está implementada."
+                        );
+                    });
+
+                document.getElementById("forgot-password")
+                    .addEventListener("click", () => {
+                        showMessage(
+                            "La recuperación de contraseña todavía no está conectada."
+                        );
+                    });
+            })();
+    </script>
+</body>
+</html>
