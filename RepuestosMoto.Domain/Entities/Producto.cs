@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace RepuestosMoto.Domain.Entities;
 
 public class Producto
 {
+    //[Key]
+    //[Required]
     public int ProductoId { get; set; }
     public int SubcategoriaId { get; set; }
     public string Codigo { get; set; } = string.Empty;
